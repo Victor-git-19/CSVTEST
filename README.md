@@ -65,18 +65,18 @@ python main.py data.csv
 
 # Запуск с фильтрацией (например, цена > 500)
 ```bash
-python main.py data.csv --filter "price>500"
+python main.py data.csv --where "price>500"
 ```
 ![alt text](image-1.png)
 
 # Запуск с агрегацией (например, среднее значение цены)
 ```bash
-python main.py data.csv --agg "price=avg"
+python main.py data.csv --aggregate "price=avg"
 ```
 ![alt text](image-2.png)
 
 # Совместное использование фильтрации и агрегации
 ```bash
-python main.py data.csv --filter "brand=xiaomi" --agg "price=min"
+python main.py data.csv --where "brand=xiaomi" --agg "price=min"
 ```
 ![alt text](image-3.png)

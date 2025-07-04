@@ -61,7 +61,7 @@ def apply_agg(data: List[Dict[str, str]], column: str, agg_func):
 
 def main():
     parser = argparse.ArgumentParser(description='Обработчик CSV файлов')
-    parser.add_argument('file', help='Путь к CSV файлу')
+    parser.add_argument('--file', help='Путь к CSV файлу')
     parser.add_argument('--where',
                         help='Условие фильтрации, например price>500')
     parser.add_argument('--aggregate',
