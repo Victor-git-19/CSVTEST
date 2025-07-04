@@ -34,7 +34,7 @@ def apply_filter(data: List[Dict[str, str]],
 
 def parse_agg(agg_str: str):
     if '=' not in agg_str:
-        raise ValueError('Агрегация должна быть в формате column=operation')
+        raise ValueError('Агрегация должна быть в формате колонка=операция')
     column, op = agg_str.split('=')
     column = column.strip()
     op = op.strip().lower()
@@ -60,10 +60,11 @@ def apply_agg(data: List[Dict[str, str]], column: str, agg_func):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='CSV Processor')
-    parser.add_argument('file', help='Path to CSV file')
-    parser.add_argument('--filter', help='Filter condition, e.g. price>500')
-    parser.add_argument('--agg', help='Aggregation in format column=operation')
+    parser = argparse.ArgumentParser(description='Обработчик CSV файлов')
+    parser.add_argument('file', help='Путь к CSV файлу')
+    parser.add_argument('--filter',
+                        help='Условие фильтрации, например price>500')
+    parser.add_argument('--agg', help='Агрегация в формате колонка=операция')
     args = parser.parse_args()
 
     data = read_csv(args.file)
@@ -93,7 +94,7 @@ def main():
     if data:
         print(tabulate(data, headers='keys', tablefmt='grid'))
     else:
-        print('File is emty!')
+        print('Файл пуст!')
 
 
 if __name__ == '__main__':
