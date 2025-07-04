@@ -68,7 +68,14 @@ def main():
                         help='Агрегация в формате колонка=операция')
     args = parser.parse_args()
 
-    data = read_csv(args.file)
+    try:
+        data = read_csv(args.file)
+    except FileNotFoundError:
+        print(f"Ошибка: файл '{args.file}' не найден.")
+        return
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
+        return
 
     if args.where:
         try:
