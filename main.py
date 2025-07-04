@@ -32,10 +32,38 @@ def apply_filter(data: List[Dict[str, str]],
     return filtered
 
 
+def parse_agg(agg_str: str):
+    if '=' not in agg_str:
+        raise ValueError('Агрегация должна быть в формате column=operation')
+    column, op = agg_str.split('=')
+    column = column.strip()
+    op = op.strip().lower()
+    if op not in AGG_FUNCTIONS:
+        raise ValueError(
+            f'Поддерживаемые операции агрегации: {', '.join(AGG_FUNCTIONS)}')
+    return column, AGG_FUNCTIONS[op]
+
+
+def apply_agg(data: List[Dict[str, str]], column: str, agg_func):
+    numbers = []
+    for row in data:
+        val = row.get(column)
+        if val is None:
+            continue
+        try:
+            numbers.append(float(val))
+        except ValueError:
+            pass
+    if not numbers:
+        return None
+    return agg_func(numbers)
+
+
 def main():
     parser = argparse.ArgumentParser(description='CSV Processor')
     parser.add_argument('file', help='Path to CSV file')
     parser.add_argument('--filter', help='Filter condition, e.g. price>500')
+    parser.add_argument('--agg', help='Aggregation in format column=operation')
     args = parser.parse_args()
 
     data = read_csv(args.file)
@@ -47,6 +75,20 @@ def main():
         except ValueError as e:
             print(f'Ошибка фильтрации: {e}')
             return
+
+    if args.agg:
+        try:
+            column, agg_func = parse_agg(args.agg)
+            result = apply_agg(data, column, agg_func)
+            if result is None:
+                print(
+                    f"Нет числовых данных для агрегации по колонке '{column}'")
+                return
+            table = [{f"{column}_{args.agg.split('=')[1]}": result}]
+            print(tabulate(table, headers="keys", tablefmt="grid"))
+        except ValueError as e:
+            print(f"Ошибка агрегации: {e}")
+        return
 
     if data:
         print(tabulate(data, headers='keys', tablefmt='grid'))
