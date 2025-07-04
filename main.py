@@ -62,30 +62,31 @@ def apply_agg(data: List[Dict[str, str]], column: str, agg_func):
 def main():
     parser = argparse.ArgumentParser(description='Обработчик CSV файлов')
     parser.add_argument('file', help='Путь к CSV файлу')
-    parser.add_argument('--filter',
+    parser.add_argument('--where',
                         help='Условие фильтрации, например price>500')
-    parser.add_argument('--agg', help='Агрегация в формате колонка=операция')
+    parser.add_argument('--aggregate',
+                        help='Агрегация в формате колонка=операция')
     args = parser.parse_args()
 
     data = read_csv(args.file)
 
-    if args.filter:
+    if args.where:
         try:
-            field, op_func, value = parse_filter(args.filter)
+            field, op_func, value = parse_filter(args.where)
             data = apply_filter(data, field, op_func, value)
         except ValueError as e:
             print(f'Ошибка фильтрации: {e}')
             return
 
-    if args.agg:
+    if args.aggregate:
         try:
-            column, agg_func = parse_agg(args.agg)
+            column, agg_func = parse_agg(args.aggregate)
             result = apply_agg(data, column, agg_func)
             if result is None:
                 print(
                     f"Нет числовых данных для агрегации по колонке '{column}'")
                 return
-            table = [{f"{column}_{args.agg.split('=')[1]}": result}]
+            table = [{f"{column}_{args.aggregate.split('=')[1]}": result}]
             print(tabulate(table, headers="keys", tablefmt="grid"))
         except ValueError as e:
             print(f"Ошибка агрегации: {e}")
