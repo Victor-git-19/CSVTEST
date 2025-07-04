@@ -70,18 +70,18 @@ def test_parse_agg_max():
     assert agg_func([10, 20, 30]) == 30
 
 
-def test_apply_agg_avg(sample_data):
-    result = apply_agg(sample_data, "price",
+def test_apply_agg_avg(test_data):
+    result = apply_agg(test_data, "price",
                        lambda nums: sum(nums) / len(nums))
     expected = (999 + 1199 + 199 + 299) / 4
     assert abs(result - expected) < 1e-6
 
 
-def test_apply_agg_min(sample_data):
-    result = apply_agg(sample_data, "price", min)
+def test_apply_agg_min(test_data):
+    result = apply_agg(test_data, "price", min)
     assert result == 199
 
 
-def test_apply_agg_max(sample_data):
-    result = apply_agg(sample_data, "price", max)
+def test_apply_agg_max(test_data):
+    result = apply_agg(test_data, "price", max)
     assert result == 1199

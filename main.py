@@ -40,7 +40,7 @@ def parse_agg(agg_str: str):
     op = op.strip().lower()
     if op not in AGG_FUNCTIONS:
         raise ValueError(
-            f'Поддерживаемые операции агрегации: {', '.join(AGG_FUNCTIONS)}')
+            f"Поддерживаемые операции агрегации: {', '.join(AGG_FUNCTIONS)}")
     return column, AGG_FUNCTIONS[op]
 
 

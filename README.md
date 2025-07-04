@@ -51,8 +51,9 @@ pip install pytest
 ### Шаг 2. Запуск тестов
 
 ```bash
-pytest tests/
+python -m pytest -v
 ```
+![alt text](image-4.png)
 
 ## Примеры запуска скрипта
 
