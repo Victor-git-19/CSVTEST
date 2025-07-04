@@ -54,4 +54,28 @@ pip install pytest
 pytest tests/
 ```
 
+## Примеры запуска скрипта
+
+# Запуск скрипта с указанием файла
+```bash
+python main.py data.csv
+```
 ![alt text](image.png)
+
+# Запуск с фильтрацией (например, цена > 500)
+```bash
+python main.py data.csv --filter "price>500"
+```
+![alt text](image-1.png)
+
+# Запуск с агрегацией (например, среднее значение цены)
+```bash
+python main.py data.csv --agg "price=avg"
+```
+![alt text](image-2.png)
+
+# Совместное использование фильтрации и агрегации
+```bash
+python main.py data.csv --filter "brand=xiaomi" --agg "price=min"
+```
+![alt text](image-3.png)
