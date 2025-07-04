@@ -35,3 +35,23 @@ python main.py data.csv --agg "price=avg"
 # Совместное использование фильтрации и агрегации (минимальная цена среди товаров бренда xiaomi)
 python main.py data.csv --filter "brand=xiaomi" --agg "price=min"
 ```
+
+## Запуск тестов
+
+Для проверки корректности работы проекта используется `pytest`.
+
+### Шаг 1. Установка pytest
+
+Если `pytest` ещё не установлен, установи его командой:
+
+```bash
+pip install pytest
+```
+
+### Шаг 2. Запуск тестов
+
+```bash
+pytest tests/
+```
+
+![alt text](image.png)
