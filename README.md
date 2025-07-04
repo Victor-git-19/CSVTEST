@@ -27,13 +27,13 @@ pip install -r requirements.txt
 python main.py --file data.csv
 
 # Запуск с фильтрацией (например, выбрать товары с ценой больше 500)
-python main.py --file data.csv --filter "price>500"
+python main.py --file data.csv --where "price>500"
 
 # Запуск с агрегацией (например, среднее значение цены)
-python main.py --file data.csv --agg "price=avg"
+python main.py --file data.csv --aggregate "price=avg"
 
 # Совместное использование фильтрации и агрегации (минимальная цена среди товаров бренда xiaomi)
-python main.py --file data.csv --where "brand=xiaomi" --aggtegate "price=min"
+python main.py --file data.csv --where "brand=xiaomi" --aggregate "price=min"
 ```
 
 ## Запуск тестов
